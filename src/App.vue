@@ -1,5 +1,8 @@
 <template>
- <Todo />
+  <v-app>
+
+    <Todo />
+  </v-app>
 </template>
 
 <script>
