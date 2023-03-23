@@ -4,9 +4,9 @@
         <span>Your tasks: {{ complete }}/ {{ total }} </span>
     </div>
     <div style="display: flex;">
-        <v-text-field type="text" class="textfield" v-model="newTodoTitle" outlined label="Get groceries" clearabfa-pull-left @keyup.enter="addTodo">
+        <v-text-field class="textfield" v-model.trim="newTodoTitle" outlined label="Get groceries" clearabfa-pull-left  @keyup.enter="addTodo">
         </v-text-field>
-        <v-btn @click="addTodo" color="#F5F1FF" purple--text class="pa-0 mx-3 my-1 x-small addbtn" v-model:disabled="isDisable" >Add
+        <v-btn @click="addTodo" color="#F5F1FF" purple--text class="pa-0 mx-3 my-1 x-small addbtn" v-bind:disabled="!newTodoTitle" >Add
         </v-btn>
     </div>
 
@@ -15,7 +15,7 @@
           <v-list-item v-on:click="doneTodo(todo.id)">
                 <template v-slot:default>
                     <v-list-item-action>
-                        <v-checkbox :input-value="todo.done"></v-checkbox>
+                        <v-checkbox v-bind:input-value="todo.done"></v-checkbox>
                     </v-list-item-action>
 
                     <v-list-item-content>
@@ -48,17 +48,11 @@ export default {
         complete() {
 
             let len = this.todos.length
-            // let strike(){
-            //   this.todos.filter(todo=>todo.done!==).length
-            // }
-            // return len
-
-
-              function todocallback(todo){
+            function todocallback(todo){
                  return todo.done!=true
               }
               const completedTodos=this.todos.filter(todocallback).length
-              console.log(completedTodos,"no of strike through")
+              // console.log(completedTodos,"no of strike through")
               len=len-completedTodos;
               return len;
 
@@ -71,7 +65,7 @@ export default {
             // let callbackfnc=()=>{
 
             // }
-            // let strik= this.todos.filter(callbackfnc)
+            // let strike= this.todos.filter(callbackfnc)
         },
         total() {
           console.log("consoled check")
@@ -80,19 +74,17 @@ export default {
       },
       methods: {
 
-        isDisable() {
-           console.log(this.newTodoTitle.length,"length disable")
-           // return this.newTodoTitle.length>0;
-           return true
-        },
         addTodo() {
-            let newTodo = {
-                id: Date.now(),
-                title: this.newTodoTitle,
-                done: false
-
-            }
+          let newTodo = {
+            id: Date.now(),
+            title: this.newTodoTitle,
+            done: false
+            
+          }
+          if(this.newTodoTitle){
             this.todos.push(newTodo)
+          }
+          
             this.newTodoTitle = ''
         },
         doneTodo(id) {
@@ -116,7 +108,7 @@ export default {
             //     done: false
             //   }]
 
-            // return
+            // return value of filter an array
             // [ {
             //     id: 1,
             //     title: "shampoo",
@@ -124,7 +116,7 @@ export default {
             //   },
           // ]
 
-
+              // return value of find only a single element not an array
               //  {
               //   id: 1,
               //  title: "shampoo",
