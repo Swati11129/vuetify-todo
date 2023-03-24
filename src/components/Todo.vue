@@ -44,6 +44,13 @@ export default {
             todos: [ ],
         }
     },
+    // watch:{
+    //     todos(newValue,oldValue){
+    //         console.log(newValue,'new')
+    //         console.log(oldValue,'old')
+    //     }
+        // todos: this.todos.filter(todo => todo.done)
+    // },
     computed: {
         complete() {
 
@@ -90,26 +97,33 @@ export default {
           if(this.newTodoTitle){
             this.todos.push(newTodo)
           }
-          
-            this.newTodoTitle = ''
+           this.newTodoTitle = ''
+        },
+        deleteTodo(id) {
+            this.todos = this.todos.filter(todo => todo.id !== id)
         },
         doneTodo(id) {
             let todo = this.todos.filter(todo => todo.id === id)[0]
             todo.done = !todo.done
             
-               function todocallbackchecked(todo){
-                     return todo.done==true
-                   }
+            let arrchecked=this.todos.filter(todo=>todo.done)
+            let arrunchecked=this.todos.filter(todo=>todo.done!==true)
+            this.todos=[...arrchecked,...arrunchecked]
 
-                   const arrchecked=this.todos.filter(todocallbackchecked)
-                    function todocallbackunchecked(todo){
-                        return todo.done!=true
-                     }
 
-                   const arrunchecked=this.todos.filter(todocallbackunchecked)
+            //    function todocallbackchecked(todo){
+            //          return todo.done==true
+            //        }
 
-                   let combined=[...arrchecked,...arrunchecked]
-                   this.todos=combined
+            //        const arrchecked=this.todos.filter(todocallbackchecked)
+            //         function todocallbackunchecked(todo){
+            //             return todo.done!=true
+            //          }
+
+            //        const arrunchecked=this.todos.filter(todocallbackunchecked)
+
+            //        let combined=[...arrchecked,...arrunchecked]
+            //        this.todos=combined
 
             // let todos=[
             //   {
@@ -146,9 +160,6 @@ export default {
         },
         
       
-        deleteTodo(id) {
-            this.todos = this.todos.filter(todo => todo.id !== id)
-        },
 
     }
 
