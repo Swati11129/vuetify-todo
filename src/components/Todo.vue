@@ -49,11 +49,17 @@ export default {
 
             let len = this.todos.length
             function todocallback(todo){
+               
+               
                  return todo.done!=true
               }
+
               const completedTodos=this.todos.filter(todocallback).length
               // console.log(completedTodos,"no of strike through")
               len=len-completedTodos;
+               
+
+
               return len;
 
             // function  callbackfnc(element,index,array ){
@@ -91,6 +97,20 @@ export default {
             let todo = this.todos.filter(todo => todo.id === id)[0]
             todo.done = !todo.done
             
+               function todocallbackchecked(todo){
+                     return todo.done==true
+                   }
+
+                   const arrchecked=this.todos.filter(todocallbackchecked)
+                    function todocallbackunchecked(todo){
+                        return todo.done!=true
+                     }
+
+                   const arrunchecked=this.todos.filter(todocallbackunchecked)
+
+                   let combined=[...arrchecked,...arrunchecked]
+                   this.todos=combined
+
             // let todos=[
             //   {
             //     id: 1,
